@@ -1,5 +1,29 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Deployment on Kubernetes
+Version for kubernetes is built following:
+
+> docker build -t gcr.io/gcp-monetizr-project/react_tutorial .
+
+> docker push gcr.io/gcp-monetizr-project/react_tutorial
+
+> kubectl set image deployment/react-tutorial react-tutorial-app=gcr.io/gcp-monetizr-project/react_tutorial
+
+
+Create GKE resource
+
+> kubectl create -f react-tutorial.yml
+
+Push new container version to kubernetes:
+
+> docker build -t gcr.io/gcp-monetizr-project/react_tutorial:0.0.1 .
+
+> docker push gcr.io/gcp-monetizr-project/react_tutorial:0.0.1
+
+Replacing containers on the go, while some are down, others are working
+
+> kubectl set image deployment/react-tutorial react-tutorial-app=gcr.io/gcp-monetizr-project/react_tutorial:0.0.1
+
 ## Available Scripts
 
 In the project directory, you can run:

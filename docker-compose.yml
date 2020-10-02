@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+
+  react-tutorial:
+    container_name: react-tutorial
+    build:
+      context: .
+    ports:
+      - '1337:80'
