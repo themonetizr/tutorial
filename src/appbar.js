@@ -56,7 +56,7 @@ export default function ButtonAppBar({apikey}) {
             </Menu>
 
           <Typography variant="h6" className={classes.title}>
-            Monetizr
+            Rewards
           </Typography>
           <SimpleModal apikey={apikey}/>
         </Toolbar>

@@ -1,30 +1,10 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+##
+This project as prepared as an example application to demonstrate Monetizr's integration in game or mobile application
 
-## Deployment on Kubernetes
-Version for kubernetes is built following:
+Application is built on top of [React tutorial](https://reactjs.org/tutorial/tutorial.html).
+In the process
 
-> docker build -t gcr.io/gcp-monetizr-project/react_tutorial .
-
-> docker push gcr.io/gcp-monetizr-project/react_tutorial
-
-> kubectl set image deployment/react-tutorial react-tutorial-app=gcr.io/gcp-monetizr-project/react_tutorial
-
-
-Create GKE resource
-
-> kubectl create -f react-tutorial.yml
-
-Push new container version to kubernetes:
-
-> docker build -t gcr.io/gcp-monetizr-project/react_tutorial:0.0.1 .
-
-> docker push gcr.io/gcp-monetizr-project/react_tutorial:0.0.1
-
-Replacing containers on the go, while some are down, others are working
-
-> kubectl set image deployment/react-tutorial react-tutorial-app=gcr.io/gcp-monetizr-project/react_tutorial:0.0.1
-
-## Available Scripts
+## Available Scripts For launching locally
 
 In the project directory, you can run:
 
@@ -51,42 +31,12 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Deployment on Kubernetes
+Tutorial runs on Kubernetes engine, to publish new version, author needs to acquire permissions to push container to repository:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+> docker build -t gcr.io/gcp-monetizr-project/react_tutorial .
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+> docker push gcr.io/gcp-monetizr-project/react_tutorial
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+> kubectl set image deployment/react-tutorial react-tutorial-app=gcr.io/gcp-monetizr-project/react_tutorial

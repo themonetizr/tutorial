@@ -19,11 +19,24 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
     width: 400,
+    maxHeight: '95vh',
     backgroundColor: theme.palette.background.modal,
     border: '1px solid ' + theme.palette.background.modal,
     boxShadow: theme.shadows[0],
     padding: theme.spacing(2, 4, 3),
     color: '#f2a535',
+    [theme.breakpoints.up('xs')]: {
+      width: '100vw',
+    },
+    [theme.breakpoints.up('sm')]: {
+      width: '80vw',
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '60vw',
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: '40vw',
+    },
   },
   modal: {
       border: '1px solid ' + theme.palette.background.modal,
@@ -46,7 +59,6 @@ export default function SimpleModal({apikey}) {
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <h2 id="simple-modal-title">Available offers</h2>
       <OfferList apikey={apikey} handleClose={handleClose}/>
     </div>
   );

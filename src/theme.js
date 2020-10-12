@@ -7,7 +7,7 @@ const theme = createMuiTheme({
  spacing: 4,
  palette: {
    primary: {
-     main: '#002e74',
+     main: '#3f3843',
    },
    secondary: {
      main: '#19857b',
@@ -16,7 +16,7 @@ const theme = createMuiTheme({
      main: red.A400,
    },
    background: {
-     default: '#fff',
+     default: '#3e3740',
      modal: '#272331'
    },
  },

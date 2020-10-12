@@ -61,13 +61,17 @@ class Game extends React.Component {
     constructor(props) {
         super(props);
 
+        let apikey = '0EC739B6CA9AC49961216F280FB8BE7MHASGGYWER';
+        if (history.location.state !== undefined && history.location.state.apikey !== undefined) {
+            apikey = history.location.state.apikey;
+        }
         this.state = {
             history: [{
                 squares: Array(9).fill(null),
             }],
             stepNumber: 0,
             xIsNext: true,
-            apikey: '0EC739B6CA9AC49961216F280FB8BE7MHASGGYWER',
+            apikey: apikey,
             closedReward: false
         }
     }
@@ -109,6 +113,8 @@ class Game extends React.Component {
                  defaultValue={this.state.apikey}
                  label="Monetizr API key"
                  variant="outlined"
+                 InputProps={{className: 'apikey-input'}}
+                 style={{color: "#fff"}}
                  onChange={(e) => {
                      this.setState({
                          apikey: e.target.value,
@@ -181,7 +187,7 @@ ReactDOM.render(
     <ThemeProvider theme={theme}>
         <CssBaseline />
         <Container maxWidth={false} className="root-container">
-            <Typography component="div" style={{ backgroundColor: '#fff', height: '100vh' }}>
+            <Typography component="div" style={{ height: '100vh' }}>
                 <Router history={history}>
                 <App />
                 </Router>

@@ -6,7 +6,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import PersonPinIcon from '@material-ui/icons/PersonPin';
+import HelpIcon from '@material-ui/icons/Help';
 import { Redirect } from "react-router-dom";
 import history from './utils/history';
 
@@ -24,7 +30,7 @@ const styles = theme => ({
       marginTop: '8px',
       borderRadius: '15px',
       padding: '0px',
-      cursor: 'pointer'
+      cursor: 'pointer',
   },
   avatarContainer: {
       width: '33%',
@@ -43,6 +49,39 @@ const styles = theme => ({
   }
 });
 
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
 class OfferList extends React.Component {
     constructor(props){
         super(props);
@@ -52,12 +91,13 @@ class OfferList extends React.Component {
           isLoaded: false,
           items: [],
           redirect: null,
-          reward_tag: null
+          reward_tag: null,
+          value: 1
         };
     }
 
     componentDidMount() {
-        fetch("https://api3.themonetizr.com/api/products", {
+        fetch("https://api3.themonetizr.com/api/offers", {
             headers: {
                 accept: 'application/json',
                 authorization: `Bearer ${this.props.apikey}`
@@ -70,10 +110,10 @@ class OfferList extends React.Component {
               return res.json();
           })
           .then(
-            (result) => {
+            (offers) => {
                 this.setState({
                     isLoaded: true,
-                    items: result
+                    items: offers.results
                 });
             },
             (error) => {
@@ -85,12 +125,21 @@ class OfferList extends React.Component {
       );
     }
 
+  handleChange(event, newValue) {
+      if (newValue !== 1) {
+          const { handleClose } = this.props;
+          handleClose();
+      } else {
+          this.setState({value: newValue});
+      }
+  }
+
   render() {
       const { classes } = this.props;
       const { apikey } = this.props;
 
       if (this.state.redirect) {
-          history.push('/');
+          history.push('/', {apikey: apikey});
           return <Redirect to={{'pathname': this.state.redirect, state: {apikey: apikey, reward_tag: this.state.reward_tag}}} />
       }
 
@@ -101,18 +150,30 @@ class OfferList extends React.Component {
       } else {
           const items = this.state.items;
           return (
+              <>
+              <Tabs value={this.state.value} variant="fullWidth" onChange={(event, newValue) => this.handleChange(event, newValue)} aria-label="simple tabs example">
+                  <Tab icon={<PersonPinIcon />} label="Friends" {...a11yProps(0)} />
+                  <Tab icon={<FavoriteIcon />} label="Redeem" {...a11yProps(1)} />
+                  <Tab icon={<HelpIcon />} label="Close" {...a11yProps(2)} />
+              </Tabs>
+              <TabPanel value={this.state.value} index={0}>
+              </TabPanel>
+              <TabPanel value={this.state.value} index={1}>
+              </TabPanel>
+              <TabPanel value={this.state.value} index={2}>
+              </TabPanel>
               <div className="modal-offer-list">
                 <List className={classes.listRoot} >
                 {items.map(item => (
                     <ListItem
                         alignItems="center"
-                        key={item.product_tag}
+                        key={item.id}
                         className={classes.item}
                         onClick={() => {
-                            this.setState({ redirect: "/reward", reward_tag: item.product_tag});
+                            this.setState({ redirect: "/reward", reward_tag: item.offer_tag});
                         }}>
                       <ListItemAvatar className={classes.avatarContainer}>
-                        <Avatar alt="MT" src={item.product_thumbnail} className={classes.avatar}/>
+                        <Avatar alt="MT" src={item.offer_thumbnail} className={classes.avatar}/>
                       </ListItemAvatar>
                       <ListItemText
                         primary={item.name}
@@ -133,6 +194,7 @@ class OfferList extends React.Component {
                 ))}
                 </List>
             </div>
+            </>
             );
         }
     }
