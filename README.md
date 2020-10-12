@@ -2,7 +2,7 @@
 This project as prepared as an example application to demonstrate Monetizr's integration in game or mobile application
 
 Application is built on top of [React tutorial](https://reactjs.org/tutorial/tutorial.html).
-In the process
+Running application example available https://tutorial.themonetizr.com
 
 ## Available Scripts For launching locally
 
