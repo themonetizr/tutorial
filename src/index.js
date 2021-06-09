@@ -120,6 +120,9 @@ class Game extends React.Component {
                          apikey: e.target.value,
                      });
                  }} />
+                 <br></br>
+                 <br></br>
+                 <Button variant="contained" color="default" onClick={() => {}}>Apply</Button>
               </form>
           </div>
           <div className="game">
