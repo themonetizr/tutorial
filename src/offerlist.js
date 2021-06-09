@@ -97,7 +97,7 @@ class OfferList extends React.Component {
     }
 
     componentDidMount() {
-        fetch("https://api3.themonetizr.com/api/offers", {
+        fetch("https://api3.themonetizr.com/api/offers?is_active=true", {
             headers: {
                 accept: 'application/json',
                 authorization: `Bearer ${this.props.apikey}`
@@ -150,7 +150,7 @@ class OfferList extends React.Component {
       } else {
           const items = this.state.items;
           return (
-              <>
+              <div>
               <Tabs value={this.state.value} variant="fullWidth" onChange={(event, newValue) => this.handleChange(event, newValue)} aria-label="simple tabs example">
                   <Tab icon={<PersonPinIcon />} label="Friends" {...a11yProps(0)} />
                   <Tab icon={<FavoriteIcon />} label="Redeem" {...a11yProps(1)} />
@@ -193,8 +193,8 @@ class OfferList extends React.Component {
                     </ListItem>
                 ))}
                 </List>
+              </div>
             </div>
-            </>
             );
         }
     }

@@ -61,7 +61,7 @@ class Game extends React.Component {
     constructor(props) {
         super(props);
 
-        let apikey = '0EC739B6CA9AC49961216F280FB8BE7MHASGGYWER';
+        let apikey = 'd10gg1df95s34433c65rt6a4a1d560d48';
         if (history.location.state !== undefined && history.location.state.apikey !== undefined) {
             apikey = history.location.state.apikey;
         }
@@ -103,7 +103,7 @@ class Game extends React.Component {
           status = 'Next player: '+ (this.state.xIsNext ? 'X' : 'O');
       }
     return (
-        <>
+        <div>
           <ButtonAppBar apikey={this.state.apikey}/>
           <div className="api-key">
               <form noValidate autoComplete="off" className="apikey-form">
@@ -134,7 +134,7 @@ class Game extends React.Component {
             </div>
           </div>
           <RewardModal apikey={this.state.apikey} open={(winnerWasFound & this.state.closedReward !== true ? true : false )} onClose={() => { this.setState({closedReward: true}); }} />
-      </>
+        </div>
     );
   }
 

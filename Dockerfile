@@ -1,11 +1,11 @@
-FROM node:14.11.0-alpine as builder
+FROM node:16.3.0-alpine as builder
 
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json ./
 COPY package-lock.json ./
 RUN npm ci --silent
-RUN npm install react-scripts@3.4.1 -g --silent
+RUN npm install react-scripts@4.0.3 -g --silent
 COPY . ./
 RUN npm run build
 
