@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
     width: '30vw',
-    backgroundColor: theme.palette.background.modal,
+    background: theme.palette.background.default,
     border: '1px solid ' + theme.palette.background.modal,
     boxShadow: theme.shadows[0],
     padding: theme.spacing(2, 4, 3),

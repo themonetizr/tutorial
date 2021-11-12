@@ -122,7 +122,7 @@ class Game extends React.Component {
                  }} />
                  <br></br>
                  <br></br>
-                 <Button variant="contained" color="default" onClick={() => {}}>Apply</Button>
+                 <Button variant="contained" color="primary" onClick={() => {}}>Apply</Button>
               </form>
           </div>
           <div className="game">
