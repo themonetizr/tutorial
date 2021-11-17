@@ -17,6 +17,10 @@ import {
 import Reward from './reward';
 import history from './utils/history';
 import RewardModal from './reward-modal';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import {Switch as Muiswitch} from '@mui/material';
+import Snackbar from '@mui/material/Snackbar';
 
 function Square(props) {
     return (
@@ -72,7 +76,8 @@ class Game extends React.Component {
             stepNumber: 0,
             xIsNext: true,
             apikey: apikey,
-            closedReward: false
+            closedReward: false,
+            checked: true
         }
     }
 
@@ -104,7 +109,7 @@ class Game extends React.Component {
       }
     return (
         <div>
-          <ButtonAppBar apikey={this.state.apikey}/>
+          <ButtonAppBar apikey={this.state.apikey} checked={this.state.checked}/>
           <div className="api-key">
               <form noValidate autoComplete="off" className="apikey-form">
                 <TextField
@@ -114,7 +119,7 @@ class Game extends React.Component {
                  label="Monetizr API key"
                  variant="outlined"
                  InputProps={{className: 'apikey-input'}}
-                 style={{color: "#fff"}}
+                 disabled={!this.state.checked}
                  onChange={(e) => {
                      this.setState({
                          apikey: e.target.value,
@@ -122,7 +127,10 @@ class Game extends React.Component {
                  }} />
                  <br></br>
                  <br></br>
-                 <Button variant="contained" color="primary" onClick={() => {}}>Apply</Button>
+                 <Button variant="contained" disabled={!this.state.checked} color="primary" onClick={() => {}}>Apply</Button>
+                 <FormGroup>
+                  <FormControlLabel control={<Muiswitch checked={this.state.checked} onChange={(e)=> this.handleChange(e)}/>} label="Monetizr On/Off" />
+                </FormGroup>
               </form>
           </div>
           <div className="game">
@@ -136,7 +144,13 @@ class Game extends React.Component {
               <ol>{ moves }</ol>
             </div>
           </div>
-          <RewardModal apikey={this.state.apikey} open={(winnerWasFound & this.state.closedReward !== true ? true : false )} onClose={() => { this.setState({closedReward: true}); }} />
+          <RewardModal apikey={this.state.apikey} checked={this.state.checked} open={(winnerWasFound && this.state.checked === true & this.state.closedReward !== true ? true : false )} onClose={() => { this.setState({closedReward: true}); }} />
+          <Snackbar
+            open={(winnerWasFound && this.state.checked === false ? true : false )}
+            autoHideDuration={5}
+            message="Well, the game is completed at this moment! Go to the Game Start or reload the page."
+            severity="success"
+          />
         </div>
     );
   }
@@ -147,6 +161,12 @@ class Game extends React.Component {
           xIsNext: (step % 2) === 0,
       });
   }
+
+  handleChange(e) {
+    this.setState({
+      checked: e.target.checked,
+    });
+  };
 
   handleClick(i){
       const history = this.state.history.slice(0, this.state.stepNumber + 1);

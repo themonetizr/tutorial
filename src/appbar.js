@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ButtonAppBar({apikey}) {
+export default function ButtonAppBar({apikey, checked}) {
   const classes = useStyles();
 
   return (
@@ -25,7 +25,7 @@ export default function ButtonAppBar({apikey}) {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}></Typography>
-          <SimpleModal apikey={apikey}/>
+          <SimpleModal apikey={apikey} checked={checked}/>
         </Toolbar>
       </AppBar>
     </div>

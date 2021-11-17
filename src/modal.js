@@ -44,13 +44,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function SimpleModal({apikey}) {
+export default function SimpleModal({apikey, checked}) {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
-    setOpen(true);
+    if (checked) {
+      setOpen(true);
+    }
   };
 
   const handleClose = () => {
@@ -65,7 +67,7 @@ export default function SimpleModal({apikey}) {
 
   return (
       <div>
-      <Button color="inherit" onClick={handleOpen}>
+      <Button color="inherit" onClick={handleOpen} disabled={!checked}>
         Show offers
       </Button>
       <Modal

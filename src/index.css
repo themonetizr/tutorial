@@ -81,6 +81,11 @@ ol, ul {
 .apikey-input{
     color: #fff !important;
 }
+
+.apikey-input > :disabled{
+  color: #000 !important;
+}
+
 .apikey-input > fieldset{
     border-color: #fff;
 }
