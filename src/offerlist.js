@@ -12,7 +12,7 @@ import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import PersonPinIcon from '@material-ui/icons/PersonPin';
-import HelpIcon from '@material-ui/icons/Help';
+import CloseIcon from '@material-ui/icons/Close';
 import { Redirect } from "react-router-dom";
 import history from './utils/history';
 
@@ -126,11 +126,11 @@ class OfferList extends React.Component {
     }
 
   handleChange(event, newValue) {
-      if (newValue !== 1) {
-          const { handleClose } = this.props;
-          handleClose();
-      } else {
-          this.setState({value: newValue});
+      if (newValue === 1) {
+        this.setState({value: newValue});
+      } else if (newValue === 2) {
+        const { handleClose } = this.props;
+        handleClose();
       }
   }
 
@@ -152,9 +152,9 @@ class OfferList extends React.Component {
           return (
               <div>
               <Tabs value={this.state.value} variant="fullWidth" onChange={(event, newValue) => this.handleChange(event, newValue)} aria-label="simple tabs example">
-                  <Tab icon={<PersonPinIcon />} label="Friends" {...a11yProps(0)} />
+                  <Tab icon={<PersonPinIcon />} label="Friends" style={{ color: "#726776" }} {...a11yProps(0)} />
                   <Tab icon={<FavoriteIcon />} label="Redeem" {...a11yProps(1)} />
-                  <Tab icon={<HelpIcon />} label="Close" {...a11yProps(2)} />
+                  <Tab icon={<CloseIcon />} label="Close" {...a11yProps(2)} />
               </Tabs>
               <TabPanel value={this.state.value} index={0}>
               </TabPanel>

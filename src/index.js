@@ -65,7 +65,7 @@ class Game extends React.Component {
     constructor(props) {
         super(props);
 
-        let apikey = 'd10gg1df95s34433c65rt6a4a1d560d48';
+        let apikey = '4vdWpekbjsTcZF8EJFOSD5nzC82GL4NFrzY93KfUiGU';
         if (history.location.state !== undefined && history.location.state.apikey !== undefined) {
             apikey = history.location.state.apikey;
         }
